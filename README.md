@@ -1,13 +1,7 @@
-# 2025 年全國柔術錦標賽 - 報名系統
+# 柔術錦標賽 - 報名系統
 
-[![在線展示](https://img.shields.io/badge/在線展示-查看網站-blue)](https://jujistu-craneyuniuedutws-projects.vercel.app)
-
-線上展示：<https://jujistu-craneyuniuedutws-projects.vercel.app>
-
-> ⚠️ 線上版本是**展示用**的：Vercel 的 serverless 檔案系統唯讀，SQLite 資料庫
-> 是在建置階段產生後打包進去的，因此頁面瀏覽與資料讀取正常，但單位註冊、
-> 選手報名、繳費上傳等**寫入操作會失敗**。
-> 要開放寫入需改接 Postgres，步驟見 [DEPLOYMENT.md](./DEPLOYMENT.md)。
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/craneyu/jujistu-game)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/craneyu/jujistu-game)
 
 ## 系統概述
 
@@ -78,7 +72,12 @@ npm install
 ```
 
 2. 設定環境變數：
-   編輯 `.env` 檔案，設定必要的環境變數
+
+```bash
+cp .env.example .env
+```
+
+   編輯 `.env` 檔案，設定必要的環境變數（Prisma CLI 使用此檔案）。
 
 3. 初始化資料庫：
 
@@ -111,14 +110,16 @@ http://localhost:3000
 
 ## 🚀 快速開始
 
-### 簡單 3 步驟部署
+### 簡單 3 步驟本地啟動
 
 ```bash
-# 1. 複製專案（repo 根目錄就是專案本身，不需要再進子目錄）
-git clone https://github.com/craneyu/jujitsu.git
-cd jujitsu
+# 1. 複製專案
+git clone https://github.com/craneyu/jujistu-game.git
+cd jujistu-game
 
 # 2. 一鍵設定
+cp .env.example .env
+# 編輯 .env，設定必要的環境變數後再執行
 ./setup.sh
 
 # 3. 啟動服務
@@ -127,10 +128,9 @@ npm run dev
 
 ### 或使用一鍵部署按鈕
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/craneyu/jujitsu)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/craneyu/jujistu-game)
 
-**💡 SQLite 讓部署變得超簡單 — 無需設定外部資料庫。**
-但請注意 serverless 平台的檔案系統唯讀，線上版本只能讀不能寫（見上方說明）。
+**💡 SQLite 適合本地開發或具備持久化磁碟的主機；Vercel／Netlify 的 serverless 環境無法持久保存本機 SQLite 資料，正式部署前需調整資料庫方案與 Prisma 設定，並設定環境變數（參考 `.env.example`）。**
 
 ## 使用流程
 
@@ -159,8 +159,8 @@ npm run dev
 
 ## 🌟 部署建議
 
-1. ✅ 使用 Vercel/Netlify 一鍵部署
-2. ✅ SQLite 資料庫已內建，無需額外設定
+1. 使用 Vercel／Netlify 部署前，先確認資料庫方案符合平台限制
+2. 使用 SQLite 時，需初始化資料庫並設定可寫入的持久化儲存空間
 3. ✅ 支援檔案上傳到 Azure Storage
 4. ✅ 自動 HTTPS 加密
 5. ✅ 預設管理員帳戶自動建立
